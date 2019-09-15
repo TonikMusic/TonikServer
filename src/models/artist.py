@@ -2,6 +2,7 @@ import datetime
 from . import db
 from .abc import BaseModel, MetaBaseModel
 from sqlalchemy import DateTime
+# from .albums import Album
 
 """Define the Artist model"""
 
@@ -12,15 +13,18 @@ class Artist(db.Model, BaseModel, metaclass=MetaBaseModel):
     __tablename__ = "Artist"
     
     fullname = db.Column(db.String(200), primary_key=True)
+    artist_id = db.Column(db.Integer, primary_key=True, unique=True)
     artist_handle =  db.Column(db.String(50), primary_key=True)
     dob = db.Column(db.String(30), primary_key=True)
     genre = db.Column(db.String(50), primary_key=True)
     username = db.Column(db.String(50), primary_key=True, unique=True)
     password = db.Column(db.String(20), primary_key=True)
-    date_joined = db.Column(DateTime(), default=datetime.datetime.utcnow)
+    date_joined = db.Column(db.DateTime(), default=datetime.datetime.utcnow)
     donations_total = db.Column(db.String(500))
     follower_count = db.Column(db.Integer, default=0, primary_key=True)
     following_count = db.Column(db.Integer, default=0,primary_key=True)
+    user_active = db.Column(db.Boolean(), primary_key=True)
+    albums = db.relationship("Album")
     # social_media = relationship(social media)
     #supporters = relationship(supporters)
     #followers = relations()
